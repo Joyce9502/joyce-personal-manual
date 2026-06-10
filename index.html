@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyce 个人说明书</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #2d3748;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 50px 50px 40px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 1em;
+    opacity: 0.85;
+    font-weight: 300;
+  }
+
+  .header .badge {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    font-size: 0.85em;
+    backdrop-filter: blur(4px);
+  }
+
+  .content {
+    padding: 40px 50px 50px;
+  }
+
+  .section {
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .section-title .icon {
+    font-size: 1.3em;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-item .label {
+    font-size: 0.8em;
+    color: #a0aec0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .info-item .value {
+    font-size: 0.95em;
+    font-weight: 500;
+    color: #2d3748;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #f6f8fc 0%, #eef2ff 100%);
+    border-left: 4px solid #667eea;
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-size: 0.95em;
+    color: #4a5568;
+  }
+
+  .highlight-box strong {
+    color: #667eea;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: #eef2ff;
+    color: #5a67d8;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+  }
+
+  .tag.red {
+    background: #fff5f5;
+    color: #e53e3e;
+  }
+
+  .tag.green {
+    background: #f0fff4;
+    color: #38a169;
+  }
+
+  .tag.orange {
+    background: #fffaf0;
+    color: #dd6b20;
+  }
+
+  .dream-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dream-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-size: 6em;
+    opacity: 0.15;
+    font-family: Georgia, serif;
+  }
+
+  .dream-box .dream-title {
+    font-size: 1.05em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+
+  .dream-box .dream-desc {
+    font-size: 0.95em;
+    line-height: 1.9;
+    opacity: 0.95;
+  }
+
+  .work-style-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .work-style-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 16px;
+    background: #f7fafc;
+    border-radius: 10px;
+  }
+
+  .work-style-item .ws-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .work-style-item .ws-text {
+    font-size: 0.93em;
+    color: #4a5568;
+  }
+
+  .work-style-item .ws-text strong {
+    color: #2d3748;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #a0aec0;
+    font-size: 0.8em;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .section .detail-text {
+    font-size: 0.93em;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 24px 20px 36px; }
+    .header { padding: 36px 20px 28px; }
+    .header h1 { font-size: 1.6em; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Joyce 个人说明书</h1>
+    <div class="subtitle">了解我 · 与我高效协作的指南</div>
+    <div class="badge">广东瑞高海运物流有限公司</div>
+  </div>
+
+  <div class="content">
+
+    <!-- 基本信息 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">👤</span> 基本信息</div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">姓名</span>
+          <span class="value">Joyce</span>
+        </div>
+        <div class="info-item">
+          <span class="label">公司</span>
+          <span class="value">广东瑞高海运物流有限公司</span>
+        </div>
+        <div class="info-item">
+          <span class="label">行业</span>
+          <span class="value">石油化工海运</span>
+        </div>
+        <div class="info-item">
+          <span class="label">当前角色</span>
+          <span class="value">流程梳理执行人A（GSA方法论工作组）</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 当前重要工作 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">🎯</span> 当前最重要的事</div>
+      <div class="highlight-box">
+        <p>依据<strong>华为三支柱理论</strong>和公司顶层设计，以<strong>GSA方法论</strong>推进流程梳理工作，覆盖 <strong>LTC（线索到回款）、ITR（疑惑到解答）、OTD</strong> 三大核心流程。</p>
+        <br>
+        <p>目前已完成调研和 1.0 版本流程设计，<strong>当下最重要的事</strong>是：找到样本参与到执行岗位去模拟流程执行，找出断点并闭环解决；挖掘可优化的流程设计，挖掘可转换为 Skill 或系统数据库的需求，统一执行标准。</p>
+      </div>
+    </div>
+
+    <!-- 来AI公开课最想解决的问题 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">🎓</span> AI 公开课最想解决的问题</div>
+      <div class="tag-list">
+        <span class="tag">流程优化方法论</span>
+        <span class="tag">系统建设支撑</span>
+        <span class="tag">智能化程序落地</span>
+      </div>
+      <p class="detail-text" style="margin-top: 10px;">希望通过课程学习，掌握流程优化的方法，并为公司后续的系统建设和智能化程序做好支撑工作。</p>
+    </div>
+
+    <!-- 我喜欢什么 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">💡</span> 让我兴奋的事</div>
+      <div class="tag-list">
+        <span class="tag green">获得新认知</span>
+        <span class="tag green">学习新知识</span>
+        <span class="tag green">理论冲击</span>
+        <span class="tag green">认真投入并得到成效</span>
+      </div>
+      <p class="detail-text" style="margin-top: 10px;">我是一个"学习型 + 实践型"的人——既能被认知升级点燃，又能沉下来把理论落地为成果。把混乱变有序，是我最大的成就感来源。</p>
+    </div>
+
+    <!-- 我不喜欢什么 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">⚡</span> 会消耗我能量的事</div>
+      <div class="tag-list">
+        <span class="tag red">沟通中对方敷衍的态度</span>
+        <span class="tag red">难以推进和挖掘信息</span>
+      </div>
+      <p class="detail-text" style="margin-top: 10px;">沟通本身不会让我烦躁，但当对方态度敷衍、信息难以挖掘时，会让我难以推进工作，显著消耗我的能量。</p>
+    </div>
+
+    <!-- 兴趣爱好 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">🌿</span> 兴趣爱好</div>
+      <div class="tag-list">
+        <span class="tag orange">休息放松</span>
+        <span class="tag orange">户外走动</span>
+        <span class="tag orange">外出活动</span>
+      </div>
+      <p class="detail-text" style="margin-top: 10px;">长时间在室内会让我感到压抑和无聊，需要偶尔外出活动来恢复精力。不论是什么活动，"出去"本身就是充电。动静结合是我的能量管理方式。</p>
+    </div>
+
+    <!-- 工作偏好 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">⚙️</span> 工作偏好</div>
+      <div class="work-style-list">
+        <div class="work-style-item">
+          <span class="ws-icon">🧠</span>
+          <div class="ws-text"><strong>熟悉领域：</strong>独立思考优先，遇到问题再去与团队沟通</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">🤝</span>
+          <div class="ws-text"><strong>全新协作型工作：</strong>先找队友沟通碰撞，向上对齐目标，寻找灵感再出发</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">🚀</span>
+          <div class="ws-text"><strong>做事风格：</strong>有初步想法就动手，边做边调整。不追求完美规划，相信执行中会冒出更好的想法</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">📋</span>
+          <div class="ws-text"><strong>规划粒度：</strong>以 1-2 周为周期的短期计划，聚焦细节落地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 梦想产品 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">✨</span> 梦想中的 AI 产品</div>
+      <div class="dream-box">
+        <div class="dream-title">🔬 业务流程的 X 光机</div>
+        <div class="dream-desc">
+          像 X 光机一样<strong>持续监控业务全链路</strong>，深入分析业务日志，<strong>还原流程全貌</strong>，实时动态地发现流程问题和可优化空间，并<strong>主动推荐改进方案</strong>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 协作小贴士 -->
+    <div class="section">
+      <div class="section-title"><span class="icon">🤗</span> 与我高效协作的小贴士</div>
+      <div class="work-style-list">
+        <div class="work-style-item">
+          <span class="ws-icon">✅</span>
+          <div class="ws-text">跟我沟通时，请<strong>认真、具体、有诚意</strong>，这是我高效合作的基础</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">✅</span>
+          <div class="ws-text">给我<strong>新知识和认知冲击</strong>，我会被点燃并全力投入</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">✅</span>
+          <div class="ws-text">允许我<strong>先做再调</strong>，不需要过度规划，我擅长在执行中迭代</div>
+        </div>
+        <div class="work-style-item">
+          <span class="ws-icon">✅</span>
+          <div class="ws-text">长时间会议后，让我<strong>出去走走</strong>，我会恢复得更快</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Joyce 个人说明书 · 生成于 2026 年 6 月 9 日 · AI 流程管理公开课
+  </div>
+
+</div>
+</body>
+</html>
