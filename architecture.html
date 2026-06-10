@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三层架构支撑系统建设 - 流程·数据·应用</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f0f2f5;
+    color: #1a202c;
+    line-height: 1.85;
+    padding: 40px 20px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* Header */
+  .doc-header {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 44px 40px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .doc-header h1 { font-size: 1.9em; font-weight: 900; margin-bottom: 8px; }
+  .doc-header .subtitle { font-size: 1.05em; opacity: 0.8; font-weight: 300; margin-bottom: 4px; }
+  .doc-header .meta { font-size: 0.85em; opacity: 0.6; margin-top: 12px; }
+
+  /* Core Answer Banner */
+  .answer-banner {
+    background: linear-gradient(135deg, #f6e05e 0%, #ed8936 100%);
+    border-radius: 14px;
+    padding: 28px 36px;
+    margin-bottom: 28px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(237,137,54,0.25);
+  }
+  .answer-banner .q { font-size: 1.1em; font-weight: 700; color: #744210; margin-bottom: 10px; }
+  .answer-banner .a { font-size: 1.35em; font-weight: 900; color: #fff; }
+  .answer-banner .a-desc { font-size: 0.92em; color: #7b341e; margin-top: 8px; }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 1.2em; font-weight: 700; color: #1a365d;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .card-title .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 4px 12px; border-radius: 8px;
+    font-size: 0.72em; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .badge-blue { background: #2b6cb0; }
+  .badge-green { background: #38a169; }
+  .badge-purple { background: #805ad5; }
+  .badge-red { background: #e53e3e; }
+  .badge-orange { background: #dd6b20; }
+
+  /* Architecture layers visual */
+  .arch-visual {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 20px 0 24px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .arch-layer {
+    padding: 22px 28px;
+    display: flex; align-items: center; gap: 18px;
+    color: #fff;
+    position: relative;
+  }
+  .arch-layer.app { background: linear-gradient(135deg, #805ad5, #9f7aea); }
+  .arch-layer.data { background: linear-gradient(135deg, #38a169, #48bb78); }
+  .arch-layer.process { background: linear-gradient(135deg, #2b6cb0, #4299e1); }
+  .arch-layer .layer-icon { font-size: 2em; flex-shrink: 0; }
+  .arch-layer .layer-name { font-size: 1.1em; font-weight: 700; }
+  .arch-layer .layer-q { font-size: 0.88em; opacity: 0.85; margin-top: 2px; }
+  .arch-layer .layer-status {
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    padding: 4px 14px; border-radius: 16px; font-size: 0.75em; font-weight: 700;
+  }
+  .status-have { background: rgba(255,255,255,0.25); }
+  .status-missing { background: rgba(255,255,255,0.15); border: 1px dashed rgba(255,255,255,0.5); }
+
+  /* Sub title */
+  .sub-title {
+    font-size: 1em; font-weight: 700; color: #2d3748;
+    margin: 18px 0 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .sub-title .icon { font-size: 1.1em; }
+
+  p { margin-bottom: 10px; font-size: 0.94em; color: #4a5568; }
+
+  /* Data dictionary table */
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 0.88em;
+    margin: 14px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .data-table thead { background: #1a365d; color: #fff; }
+  .data-table th { padding: 12px 14px; text-align: left; font-weight: 600; font-size: 0.9em; }
+  .data-table td { padding: 11px 14px; color: #4a5568; border-bottom: 1px solid #edf2f7; }
+  .data-table tbody tr:nth-child(even) { background: #f7fafc; }
+  .data-table tbody tr:hover { background: #edf2f7; }
+
+  /* Highlight box */
+  .highlight-box {
+    border-left: 4px solid #2b6cb0;
+    background: #ebf8ff;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .highlight-box p { color: #2a4365; margin-bottom: 4px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  .highlight-box.green { border-left-color: #38a169; background: #f0fff4; }
+  .highlight-box.green p { color: #22543d; }
+
+  .highlight-box.purple { border-left-color: #805ad5; background: #faf5ff; }
+  .highlight-box.purple p { color: #44337a; }
+
+  .highlight-box.red { border-left-color: #e53e3e; background: #fff5f5; }
+  .highlight-box.red p { color: #742a2a; }
+
+  /* Walkthrough enhanced table */
+  .walk-table {
+    width: 100%; border-collapse: collapse; font-size: 0.82em;
+    margin: 14px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .walk-table thead { background: #2c5364; color: #fff; }
+  .walk-table th { padding: 12px 10px; text-align: left; font-weight: 600; font-size: 0.88em; white-space: nowrap; }
+  .walk-table td { padding: 10px; color: #4a5568; border-bottom: 1px solid #edf2f7; vertical-align: top; }
+  .walk-table tbody tr:nth-child(even) { background: #f7fafc; }
+  .walk-table .new-col { background: #f0fff4; }
+  .walk-table thead .new-col { background: #38a169; }
+  .col-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.8em; font-weight: 600;
+  }
+  .col-tag.blue { background: #ebf8ff; color: #2b6cb0; }
+  .col-tag.green { background: #f0fff4; color: #38a169; }
+
+  /* Action steps */
+  .action-list {
+    display: flex; flex-direction: column; gap: 12px;
+    margin: 16px 0;
+  }
+  .action-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 18px;
+    background: #f7fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+  }
+  .action-item:hover { border-color: #4299e1; background: #ebf8ff; }
+  .action-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    background: #2b6cb0; color: #fff;
+    border-radius: 50%;
+    font-size: 0.8em; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .action-text { flex: 1; }
+  .action-text strong { color: #1a365d; }
+  .action-text .action-desc { font-size: 0.88em; color: #718096; margin-top: 2px; }
+
+  /* Summary box */
+  .summary-box {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 32px 36px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .summary-box .summary-title { font-size: 1.15em; font-weight: 700; margin-bottom: 16px; opacity: 0.9; }
+  .summary-metaphor {
+    display: flex; justify-content: center; gap: 40px;
+    margin: 20px 0;
+  }
+  .metaphor-item { text-align: center; }
+  .metaphor-item .m-icon { font-size: 2.5em; margin-bottom: 8px; }
+  .metaphor-item .m-name { font-weight: 700; font-size: 1em; }
+  .metaphor-item .m-desc { font-size: 0.82em; opacity: 0.7; margin-top: 4px; }
+  .metaphor-plus { font-size: 2em; opacity: 0.4; display: flex; align-items: center; }
+  .summary-conclusion {
+    margin-top: 20px;
+    font-size: 1.05em;
+    font-weight: 500;
+    opacity: 0.9;
+    line-height: 1.8;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: #a0aec0;
+    font-size: 0.8em;
+  }
+
+  @media (max-width: 600px) {
+    .card { padding: 24px 20px; }
+    .doc-header { padding: 32px 20px 28px; }
+    .summary-metaphor { flex-direction: column; gap: 16px; align-items: center; }
+    .metaphor-plus { transform: rotate(90deg); }
+    .arch-layer .layer-status { position: static; transform: none; margin-top: 8px; display: inline-block; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .card { box-shadow: none; border: 1px solid #e2e8f0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <h1>三层架构支撑系统建设</h1>
+    <div class="subtitle">流程架构 · 数据架构 · 应用架构 —— 如何为系统建设者提供完整输入</div>
+    <div class="meta">广东瑞高海运物流有限公司 · GSA方法论工作组 · Joyce · 2026 年 6 月</div>
+  </div>
+
+  <!-- Core Answer -->
+  <div class="answer-banner">
+    <div class="q">核心问题：支撑系统建设，仅有流程架构够吗？</div>
+    <div class="a">不够。需要三层架构协同输出。</div>
+    <div class="a-desc">流程是骨架，数据是血液，应用是肌肉。三者合一，系统建设者才能真正"用起来"。</div>
+  </div>
+
+  <!-- 三层架构可视化 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-blue">核心</span> 三层架构全景
+    </div>
+
+    <div class="arch-visual">
+      <div class="arch-layer app">
+        <span class="layer-icon">🧩</span>
+        <div>
+          <div class="layer-name">应用架构 Application</div>
+          <div class="layer-q">回答："系统功能怎么划分？"</div>
+        </div>
+        <span class="layer-status status-missing">部分补充</span>
+      </div>
+      <div class="arch-layer data">
+        <span class="layer-icon">🗄️</span>
+        <div>
+          <div class="layer-name">数据架构 Data</div>
+          <div class="layer-q">回答："数据是什么？怎么流转？"</div>
+        </div>
+        <span class="layer-status status-missing">当前缺失</span>
+      </div>
+      <div class="arch-layer process">
+        <span class="layer-icon">🔄</span>
+        <div>
+          <div class="layer-name">流程架构 Process</div>
+          <div class="layer-q">回答："业务怎么做？"</div>
+        </div>
+        <span class="layer-status status-have">✅ 已完成 1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第一层：流程架构 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-blue">第一层</span> 流程架构 — 你正在做的
+    </div>
+
+    <div class="sub-title"><span class="icon">📋</span> 核心产出</div>
+    <p>端到端流程步骤、参与角色、业务规则、判断节点、异常分支。你已完成 LTC / ITR / OTD 的 1.0 版本流程设计，这是三层架构的<strong>基础层</strong>。</p>
+
+    <div class="highlight-box">
+      <p><strong>你已经有了什么：</strong>LTC（线索到回款）、ITR（疑惑到解答）、OTD 三大核心流程的端到端设计，包含流程节点、角色分工、执行标准。</p>
+    </div>
+
+    <div class="highlight-box red">
+      <p><strong>系统建设者拿到后的困惑：</strong>"流程画清楚了，但数据库怎么建？哪些字段？数据之间什么关系？接口怎么设计？"—— 这些信息流程架构无法回答。</p>
+    </div>
+  </div>
+
+  <!-- 第二层：数据架构 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-green">第二层</span> 数据架构 — 你可能正在缺失的
+    </div>
+
+    <div class="sub-title"><span class="icon">🗄️</span> 你需要输出的五个维度</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>说明</th>
+          <th>海运物流举例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>数据实体</strong></td>
+          <td>业务中涉及哪些核心数据对象</td>
+          <td>客户、订单、船舶、合同、发票、提单、航次、货物</td>
+        </tr>
+        <tr>
+          <td><strong>数据属性</strong></td>
+          <td>每个实体包含哪些字段</td>
+          <td>客户名称、信用额度、联系人、所属区域、纳税人资质</td>
+        </tr>
+        <tr>
+          <td><strong>数据关系</strong></td>
+          <td>实体之间的关联方式</td>
+          <td>一个客户 → 多个合同 → 多个订单 → 多个提单 → 多个航次</td>
+        </tr>
+        <tr>
+          <td><strong>数据标准</strong></td>
+          <td>字段命名、类型、必填/选填、值域</td>
+          <td>订单编号：ORD-YYYYMMDD-XXX；金额：decimal(12,2)；状态：枚举值</td>
+        </tr>
+        <tr>
+          <td><strong>数据生命周期</strong></td>
+          <td>在哪创建 → 谁修改 → 谁读取 → 何时归档</td>
+          <td>询价单：销售创建 → 商务修改报价 → 财务读取审核 → 订单生成后归档</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box green">
+      <p><strong>为什么重要？</strong>系统建设者最怕的是"流程画好了，但不知道数据库怎么建"。如果你在流程梳理的同时沉淀一份<strong>数据字典</strong>，他们的效率会翻倍。</p>
+    </div>
+  </div>
+
+  <!-- 第三层：应用架构 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-purple">第三层</span> 应用架构 — 锦上添花
+    </div>
+
+    <div class="sub-title"><span class="icon">🧩</span> 系统功能怎么划分？</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>分类</th>
+          <th>对应系统能力</th>
+          <th>你在流程梳理中如何识别</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>可自动化环节</strong></td>
+          <td>→ AI Skill / 智能体</td>
+          <td>重复性高、规则明确、无需人工判断的节点</td>
+        </tr>
+        <tr>
+          <td><strong>需人工审批环节</strong></td>
+          <td>→ 审批流引擎</td>
+          <td>涉及金额、风险、合规判断的节点</td>
+        </tr>
+        <tr>
+          <td><strong>跨系统流转</strong></td>
+          <td>→ 接口 / API 设计</td>
+          <td>数据需要在不同系统间传递的节点</td>
+        </tr>
+        <tr>
+          <td><strong>数据展示/报表</strong></td>
+          <td>→ BI / 仪表盘</td>
+          <td>管理者需要查看汇总数据或趋势的节点</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box purple">
+      <p><strong>你的优势：</strong>在 GSA 方法论中，你已经在"挖掘可转换为 Skill 或系统数据库的需求"——这就是应用架构的雏形。只需要将发现更结构化地记录下来。</p>
+    </div>
+  </div>
+
+  <!-- 落地方法：走查表增强 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-orange">落地</span> 如何在走查中同步沉淀数据架构
+    </div>
+
+    <p>在你现有的《模拟走查表》中<strong>增加以下列</strong>，每梳理一个流程节点，顺手记录数据相关信息：</p>
+
+    <table class="walk-table">
+      <thead>
+        <tr>
+          <th>流程节点</th>
+          <th>执行人</th>
+          <th>执行动作</th>
+          <th class="new-col">涉及数据 🆕</th>
+          <th class="new-col">数据来源 🆕</th>
+          <th class="new-col">数据去向 🆕</th>
+          <th class="new-col">可自动化？ 🆕</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>客户询价</td>
+          <td>销售</td>
+          <td>录入询价单</td>
+          <td class="new-col">客户信息<br>货物信息<br>航线信息</td>
+          <td class="new-col">CRM系统<br>客户口头</td>
+          <td class="new-col">报价模块<br>商务审批</td>
+          <td class="new-col"><span class="col-tag green">是 → Skill</span></td>
+        </tr>
+        <tr>
+          <td>商务报价</td>
+          <td>商务</td>
+          <td>核算运价<br>生成报价单</td>
+          <td class="new-col">运价表<br>历史报价<br>客户信用等级</td>
+          <td class="new-col">运价系统<br>财务系统</td>
+          <td class="new-col">审批流<br>客户确认</td>
+          <td class="new-col"><span class="col-tag blue">半自动</span></td>
+        </tr>
+        <tr>
+          <td>合同审批</td>
+          <td>部门经理</td>
+          <td>审核合同条款</td>
+          <td class="new-col">合同文本<br>报价单<br>风控评估</td>
+          <td class="new-col">商务提交</td>
+          <td class="new-col">法务审核<br>财务备案</td>
+          <td class="new-col"><span class="col-tag blue">人工审批</span></td>
+        </tr>
+        <tr>
+          <td style="color: #a0aec0; font-style: italic;">…… 更多节点</td>
+          <td style="color: #a0aec0;">……</td>
+          <td style="color: #a0aec0;">……</td>
+          <td class="new-col" style="color: #a0aec0;">……</td>
+          <td class="new-col" style="color: #a0aec0;">……</td>
+          <td class="new-col" style="color: #a0aec0;">……</td>
+          <td class="new-col" style="color: #a0aec0;">……</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box green">
+      <p><strong>关键思路：</strong>每梳理一个节点，多问三个问题——① 这个节点涉及什么数据？② 数据从哪来？③ 数据到哪去？——一轮走查下来，数据字典自然形成。</p>
+    </div>
+  </div>
+
+  <!-- 行动建议 -->
+  <div class="card">
+    <div class="card-title">
+      <span class="badge badge-blue">行动</span> 下一步建议
+    </div>
+
+    <div class="action-list">
+      <div class="action-item">
+        <span class="action-num">1</span>
+        <div class="action-text">
+          <strong>在走查表中增加"数据列"</strong>
+          <div class="action-desc">在现有走查表中增加"涉及数据""数据来源""数据去向""可自动化"四列，下一个模块开始试用。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-num">2</span>
+        <div class="action-text">
+          <strong>从 LTC 开始沉淀数据字典</strong>
+          <div class="action-desc">回顾已完成的 LTC 1.0 流程，逐节点补充数据信息，形成第一版数据字典。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-num">3</span>
+        <div class="action-text">
+          <strong>输出一份"三层架构交付模板"</strong>
+          <div class="action-desc">将流程架构 + 数据字典 + 应用建议整合为一份标准交付文档，作为给系统建设者的标准输入。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-num">4</span>
+        <div class="action-text">
+          <strong>与系统建设者对齐需求格式</strong>
+          <div class="action-desc">拿着模板草案与系统建设者沟通，确认他们需要的颗粒度和格式，迭代优化交付模板。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-num">5</span>
+        <div class="action-text">
+          <strong>让 AI 辅助生成数据字典初稿</strong>
+          <div class="action-desc">将走查表喂给 AI，让 AI 自动提取数据实体、属性和关系，生成数据字典初稿，你只需审核修正。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 总结 -->
+  <div class="summary-box">
+    <div class="summary-title">一句话总结</div>
+    <div class="summary-metaphor">
+      <div class="metaphor-item">
+        <div class="m-icon">🦴</div>
+        <div class="m-name">流程架构</div>
+        <div class="m-desc">骨架</div>
+      </div>
+      <div class="metaphor-plus">+</div>
+      <div class="metaphor-item">
+        <div class="m-icon">🩸</div>
+        <div class="m-name">数据架构</div>
+        <div class="m-desc">血液</div>
+      </div>
+      <div class="metaphor-plus">+</div>
+      <div class="metaphor-item">
+        <div class="m-icon">💪</div>
+        <div class="m-name">应用架构</div>
+        <div class="m-desc">肌肉</div>
+      </div>
+    </div>
+    <div class="summary-conclusion">
+      三者合一，系统建设者才能真正"用起来"。<br>
+      而你在走查中多问三个问题，就能同步沉淀出完整支撑。
+    </div>
+  </div>
+
+  <div class="footer">
+    三层架构支撑系统建设 · Joyce · 广东瑞高海运物流有限公司 · AI 流程管理公开课 · 2026 年 6 月
+  </div>
+
+</div>
+</body>
+</html>
