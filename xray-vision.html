@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 产品愿望 · 业务流程 X 光机</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0e17;
+    color: #e2e8f0;
+    line-height: 1.85;
+    padding: 40px 20px;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 60px 40px 50px;
+    background: radial-gradient(ellipse at top, rgba(99,102,241,0.15) 0%, transparent 60%);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .hero-xray {
+    font-size: 5em;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 30px rgba(99,102,241,0.5));
+  }
+  .hero h1 {
+    font-size: 2.4em;
+    font-weight: 900;
+    background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .hero .tagline {
+    font-size: 1.1em;
+    color: #94a3b8;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .hero .meta {
+    margin-top: 20px;
+    font-size: 0.82em;
+    color: #475569;
+  }
+
+  /* Section */
+  .section {
+    background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+    border: 1px solid #1e3a5f;
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #818cf8, #c084fc, #f472b6);
+    border-radius: 16px 16px 0 0;
+  }
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 1.2em; font-weight: 700; color: #c4b5fd;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(99,102,241,0.2);
+  }
+  .section-title .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.85em; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  p { margin-bottom: 10px; font-size: 0.94em; color: #94a3b8; }
+  p strong { color: #e2e8f0; }
+
+  /* Vision Statement */
+  .vision-box {
+    background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(192,132,252,0.1));
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin: 16px 0;
+    text-align: center;
+  }
+  .vision-box .vision-label {
+    font-size: 0.75em; font-weight: 700; color: #818cf8;
+    text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px;
+  }
+  .vision-box .vision-text {
+    font-size: 1.08em; color: #c4b5fd; line-height: 2;
+  }
+
+  /* Capability Grid */
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .cap-item {
+    background: rgba(30,58,95,0.5);
+    border: 1px solid rgba(99,102,241,0.15);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .cap-item:hover { border-color: #6366f1; transform: translateY(-2px); }
+  .cap-item .cap-icon { font-size: 2em; margin-bottom: 10px; }
+  .cap-item .cap-name { font-weight: 700; color: #e2e8f0; font-size: 0.95em; margin-bottom: 4px; }
+  .cap-item .cap-desc { font-size: 0.82em; color: #64748b; }
+
+  /* IO Section */
+  .io-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin: 20px 0;
+  }
+  .io-box {
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .io-box.input {
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.25);
+  }
+  .io-box.output {
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.25);
+  }
+  .io-box .io-label {
+    font-size: 0.75em; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .io-box.input .io-label { color: #4ade80; }
+  .io-box.output .io-label { color: #818cf8; }
+  .io-box ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .io-box ul li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 0.9em;
+    color: #cbd5e1;
+  }
+  .io-box ul li::before {
+    position: absolute; left: 0; font-size: 0.9em;
+  }
+  .io-box.input ul li::before { content: '📥'; }
+  .io-box.output ul li::before { content: '📤'; }
+
+  .io-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2em; color: #475569;
+  }
+
+  /* Quality Standards */
+  .quality-list {
+    display: flex; flex-direction: column; gap: 12px;
+    margin: 16px 0;
+  }
+  .quality-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 22px;
+    background: rgba(30,58,95,0.4);
+    border-radius: 12px;
+    border-left: 4px solid;
+  }
+  .quality-item.method { border-left-color: #818cf8; }
+  .quality-item.reason { border-left-color: #f472b6; }
+  .quality-item.benefit { border-left-color: #4ade80; }
+  .quality-item.compare { border-left-color: #fbbf24; }
+  .quality-item .q-icon { font-size: 1.5em; flex-shrink: 0; margin-top: 2px; }
+  .quality-item .q-content { flex: 1; }
+  .quality-item .q-title { font-weight: 700; color: #e2e8f0; font-size: 0.95em; margin-bottom: 4px; }
+  .quality-item .q-desc { font-size: 0.88em; color: #94a3b8; }
+
+  /* Benefit Tags */
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .benefit-tag {
+    text-align: center;
+    padding: 20px 14px;
+    border-radius: 12px;
+    border: 1px solid;
+  }
+  .benefit-tag.b1 { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.3); }
+  .benefit-tag.b2 { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.3); }
+  .benefit-tag.b3 { background: rgba(244,114,182,0.08); border-color: rgba(244,114,182,0.3); }
+  .benefit-tag .bt-icon { font-size: 2em; margin-bottom: 8px; }
+  .benefit-tag .bt-name { font-weight: 700; font-size: 0.92em; color: #e2e8f0; margin-bottom: 4px; }
+  .benefit-tag .bt-desc { font-size: 0.78em; color: #64748b; }
+
+  /* User Persona */
+  .persona-box {
+    display: flex; gap: 24px; align-items: center;
+    padding: 24px 28px;
+    background: rgba(30,58,95,0.4);
+    border-radius: 14px;
+    border: 1px solid rgba(99,102,241,0.15);
+    margin: 16px 0;
+  }
+  .persona-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2em;
+    flex-shrink: 0;
+  }
+  .persona-info { flex: 1; }
+  .persona-info .p-role { font-weight: 700; color: #c4b5fd; font-size: 1.05em; margin-bottom: 4px; }
+  .persona-info .p-desc { font-size: 0.88em; color: #94a3b8; }
+  .persona-info .p-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .persona-info .p-tag {
+    padding: 3px 10px; background: rgba(99,102,241,0.15);
+    border-radius: 12px; font-size: 0.75em; color: #818cf8;
+  }
+
+  /* Workflow Diagram */
+  .flow-diagram {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 24px;
+    background: rgba(15,23,42,0.6);
+    border-radius: 14px;
+  }
+  .flow-step {
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.82em;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .flow-step.s1 { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .flow-step.s2 { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+  .flow-step.s3 { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+  .flow-step.s4 { background: rgba(244,114,182,0.15); color: #f472b6; border: 1px solid rgba(244,114,182,0.3); }
+  .flow-step.s5 { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+  .flow-arrow { color: #475569; font-size: 1.2em; }
+
+  /* Scenario Table */
+  .scenario-table {
+    width: 100%; border-collapse: collapse; font-size: 0.85em;
+    margin: 16px 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .scenario-table thead { background: rgba(99,102,241,0.2); }
+  .scenario-table th { padding: 12px 14px; text-align: left; color: #c4b5fd; font-weight: 600; font-size: 0.9em; }
+  .scenario-table td { padding: 12px 14px; color: #94a3b8; border-bottom: 1px solid rgba(99,102,241,0.1); vertical-align: top; }
+  .scenario-table tbody tr:nth-child(even) { background: rgba(30,58,95,0.3); }
+  .scenario-table tbody tr:hover { background: rgba(99,102,241,0.08); }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 32px; color: #334155; font-size: 0.78em;
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 24px 20px; }
+    .hero { padding: 40px 20px 36px; }
+    .hero h1 { font-size: 1.6em; }
+    .cap-grid { grid-template-columns: 1fr; }
+    .io-container { grid-template-columns: 1fr; }
+    .io-arrow { transform: rotate(90deg); padding: 8px 0; }
+    .benefit-grid { grid-template-columns: 1fr; }
+    .persona-box { flex-direction: column; text-align: center; }
+    .flow-diagram { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+
+  @media print {
+    body { background: #fff; color: #1a202c; }
+    .section { background: #fff; border-color: #e2e8f0; }
+    .section::before { background: #6366f1; }
+    .section-title { color: #4c1d95; }
+    p { color: #4a5568; }
+    p strong { color: #1a202c; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-xray">🔬</div>
+    <h1>业务流程 X 光机</h1>
+    <div class="tagline">像 X 光机一样持续监控业务全链路，深入分析业务日志，还原流程全貌，实时发现流程问题，主动推荐改进方案</div>
+    <div class="meta">广东瑞高海运物流有限公司 · GSA方法论 · Joyce · 2026 年 6 月</div>
+  </div>
+
+  <!-- 1. 产品愿景 -->
+  <div class="section">
+    <div class="section-title"><span class="num">1</span> 产品愿景</div>
+
+    <div class="vision-box">
+      <div class="vision-label">One-liner</div>
+      <div class="vision-text">
+        一款面向<strong>流程管理者</strong>的 AI 产品，能够持续监控业务全链路，<br>
+        深入分析业务日志，还原流程全貌，<br>
+        实时动态地发现流程问题和可优化空间，<br>
+        并<strong>主动推荐有方法论支撑的改进方案</strong>。
+      </div>
+    </div>
+
+    <p>当前流程梳理工作高度依赖人工经验——调研、走查、访谈、总结，每个环节都需要大量沟通和判断。"业务流程 X 光机"希望将这些<strong>人工操作数字化、智能化</strong>，让流程管理者从"人肉 X 光"升级为"AI X 光"，大幅提升流程诊断的效率和准确性。</p>
+  </div>
+
+  <!-- 2. 目标用户 -->
+  <div class="section">
+    <div class="section-title"><span class="num">2</span> 目标用户</div>
+
+    <div class="persona-box">
+      <div class="persona-avatar">👤</div>
+      <div class="persona-info">
+        <div class="p-role">流程管理者 / 流程梳理执行人</div>
+        <div class="p-desc">负责公司端到端业务流程的梳理、诊断与优化工作。需要理解业务、设计流程、发现问题、推动改进，同时为系统建设者提供方向。</div>
+        <div class="p-tags">
+          <span class="p-tag">GSA方法论</span>
+          <span class="p-tag">端到端流程</span>
+          <span class="p-tag">流程诊断</span>
+          <span class="p-tag">系统建设支撑</span>
+          <span class="p-tag">跨部门协调</span>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>核心痛点：</strong>需要解决的问题是<strong>流程持续优化</strong>——不是一次性的梳理，而是一个持续发现问题、验证方案、推动改进的闭环。</p>
+  </div>
+
+  <!-- 3. 核心能力 -->
+  <div class="section">
+    <div class="section-title"><span class="num">3</span> 四大核心能力</div>
+
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-icon">📡</div>
+        <div class="cap-name">持续监控</div>
+        <div class="cap-desc">实时跟踪业务全链路执行状态，自动发现偏差和异常</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">🔍</div>
+        <div class="cap-name">深度分析</div>
+        <div class="cap-desc">深入分析业务日志和走查记录，还原真实流程全貌</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">⚡</div>
+        <div class="cap-name">动态发现</div>
+        <div class="cap-desc">实时识别流程断点、冗余、瓶颈等问题和优化空间</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">💡</div>
+        <div class="cap-name">主动推荐</div>
+        <div class="cap-desc">基于方法论输出改进方案，附预期效益对比分析</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 输入与输出 -->
+  <div class="section">
+    <div class="section-title"><span class="num">4</span> 输入与输出</div>
+
+    <div class="io-container">
+      <div class="io-box input">
+        <div class="io-label">用户输入</div>
+        <ul>
+          <li>业务日志 / 操作记录</li>
+          <li>流程模拟走查清单</li>
+          <li>流程设计文档（端到端）</li>
+          <li>执行人反馈和批注</li>
+          <li>会议访谈记录</li>
+        </ul>
+      </div>
+      <div class="io-arrow">→</div>
+      <div class="io-box output">
+        <div class="io-label">系统输出</div>
+        <ul>
+          <li>流程问题清单（分类标注）</li>
+          <li>可优化空间识别报告</li>
+          <li>改进方案（含方法论依据）</li>
+          <li>原流程 vs 优化方案效益对比</li>
+          <li>系统建设支撑建议</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-title" style="color:#c4b5fd; font-weight:700; margin: 20px 0 10px; font-size:1em;">
+      <span style="color:#818cf8;">▶</span> 处理流程
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step s1">📥 输入走查表/日志</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s2">🔍 AI 分析还原流程</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s3">⚡ 识别问题与断点</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s4">💡 生成改进方案</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s5">📊 输出效益对比报告</div>
+    </div>
+  </div>
+
+  <!-- 5. 输出质量标准 -->
+  <div class="section">
+    <div class="section-title"><span class="num">5</span> 输出质量标准（四大要求）</div>
+
+    <div class="quality-list">
+      <div class="quality-item method">
+        <span class="q-icon">📐</span>
+        <div class="q-content">
+          <div class="q-title">方法论支撑</div>
+          <div class="q-desc">每个输出的问题都必须有流程管理方法论作为依据（如 GSA 方法论、华为三支柱、端到端流程理论、精益流程等），不能凭"感觉"下结论。</div>
+        </div>
+      </div>
+
+      <div class="quality-item reason">
+        <span class="q-icon">🎯</span>
+        <div class="q-content">
+          <div class="q-title">充分的理由</div>
+          <div class="q-desc">每个问题必须说明"为什么这是问题"——基于走查数据、执行反馈、对比分析等客观证据，而非主观臆断。让流程管理者拿着报告就能向决策层解释。</div>
+        </div>
+      </div>
+
+      <div class="quality-item benefit">
+        <span class="q-icon">📊</span>
+        <div class="q-content">
+          <div class="q-title">预期效益量化</div>
+          <div class="q-desc">改进方案必须对比原流程，说明优化后的预期效益。让管理者清晰看到"改了之后能好多少"。</div>
+        </div>
+      </div>
+
+      <div class="quality-item compare">
+        <span class="q-icon">⚖️</span>
+        <div class="q-content">
+          <div class="q-title">方案可落地</div>
+          <div class="q-desc">改进方案不仅指出"应该怎样"，还要给出"怎么做到"——包括涉及的岗位调整、流程重组步骤、系统建设需求等具体行动。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 预期效益类型 -->
+  <div class="section">
+    <div class="section-title"><span class="num">6</span> 预期效益类型（改进方案应覆盖的维度）</div>
+
+    <div class="benefit-grid">
+      <div class="benefit-tag b1">
+        <div class="bt-icon">⏱️</div>
+        <div class="bt-name">缩短流程</div>
+        <div class="bt-desc">减少环节、缩短周期、消除等待和冗余步骤</div>
+      </div>
+      <div class="benefit-tag b2">
+        <div class="bt-icon">🔄</div>
+        <div class="bt-name">重组岗位</div>
+        <div class="bt-desc">优化职责分工、合并/拆分岗位、明确权责边界</div>
+      </div>
+      <div class="benefit-tag b3">
+        <div class="bt-icon">🔗</div>
+        <div class="bt-name">解决断点</div>
+        <div class="bt-desc">消除信息断层、衔接空白、数据丢失等流程断裂问题</div>
+      </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 12px; font-size: 0.88em; color: #64748b;">
+      每个改进方案至少覆盖以上一个维度，并量化预期效果（如"流程周期从 5 天缩短至 3 天"）
+    </p>
+  </div>
+
+  <!-- 7. 典型使用场景 -->
+  <div class="section">
+    <div class="section-title"><span class="num">7</span> 典型使用场景</div>
+
+    <table class="scenario-table">
+      <thead>
+        <tr>
+          <th>场景</th>
+          <th>用户操作</th>
+          <th>AI 输出</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>走查表分析</strong></td>
+          <td>上传本周《LTC 流程模拟走查表》</td>
+          <td>自动提取问题点，标注信息缺口，按严重程度分级，推荐优先处理项</td>
+        </tr>
+        <tr>
+          <td><strong>流程断点诊断</strong></td>
+          <td>输入业务日志 + 当前流程设计图</td>
+          <td>识别流程断点位置，分析原因（岗位交接/系统缺失/规则模糊），推荐修复方案</td>
+        </tr>
+        <tr>
+          <td><strong>流程优化建议</strong></td>
+          <td>输入多轮走查汇总数据</td>
+          <td>发现重复性问题和系统性瓶颈，推荐流程重组方案，附效益对比</td>
+        </tr>
+        <tr>
+          <td><strong>系统建设支撑</strong></td>
+          <td>输入优化后的流程设计</td>
+          <td>提取数据实体/关系，生成数据字典初稿，标注可自动化环节（Skill/API）</td>
+        </tr>
+        <tr>
+          <td><strong>执行监控预警</strong></td>
+          <td>持续接入业务操作日志</td>
+          <td>对比标准流程，实时发现偏差，主动推送预警和改进建议</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 8. 与当前工作的关系 -->
+  <div class="section">
+    <div class="section-title"><span class="num">8</span> 与当前工作的关系</div>
+
+    <p>"业务流程 X 光机"的愿景，与 Joyce 当前在做的流程梳理工作<strong>完全对齐</strong>：</p>
+
+    <div class="flow-diagram" style="margin: 16px 0;">
+      <div class="flow-step s1">现在的你<br><small style="opacity:0.6">人工走查+访谈</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s2">AI 辅助<br><small style="opacity:0.6">读取走查表+分析</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step s3">X 光机<br><small style="opacity:0.6">持续监控+主动预警</small></div>
+    </div>
+
+    <p><strong>第一步（现在可做）：</strong>让 AI 读取走查表，自动提取问题、标注信息缺口、生成访谈提纲、推荐优化方向——这就是 X 光机的"雏形"。</p>
+    <p><strong>第二步（中期目标）：</strong>接入业务操作日志，AI 自动对比标准流程，发现偏差并预警。</p>
+    <p><strong>第三步（远期愿景）：</strong>持续监控全链路，形成真正的"业务流程 X 光机"。</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    AI 产品愿望 · 业务流程 X 光机 · Joyce · 广东瑞高海运物流有限公司 · AI 流程管理公开课 · 2026 年 6 月
+  </div>
+
+</div>
+</body>
+</html>
