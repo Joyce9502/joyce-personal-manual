@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字产品许愿卡 · Joyce</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #fff;
+    color: #1a202c;
+    padding: 0;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 18mm 16mm 14mm;
+    position: relative;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1a365d;
+  }
+  .header .course { font-size: 0.72em; color: #718096; letter-spacing: 2px; margin-bottom: 4px; }
+  .header h1 { font-size: 1.35em; font-weight: 900; color: #1a365d; }
+  .header .sub { font-size: 0.78em; color: #a0aec0; margin-top: 2px; }
+
+  /* Info row */
+  .info-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-size: 0.85em;
+    flex-wrap: wrap;
+  }
+  .info-item {
+    display: flex;
+    gap: 4px;
+    align-items: baseline;
+  }
+  .info-item .label { color: #a0aec0; font-weight: 500; white-space: nowrap; }
+  .info-item .value { color: #1a365d; font-weight: 700; border-bottom: 1px solid #1a365d; padding: 0 8px 1px; min-width: 60px; }
+
+  /* Question */
+  .q-block {
+    margin-bottom: 14px;
+  }
+  .q-num {
+    font-size: 0.78em;
+    font-weight: 700;
+    color: #2b6cb0;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .q-num .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    background: #2b6cb0;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.85em;
+  }
+  .q-hint {
+    font-size: 0.68em;
+    color: #a0aec0;
+    font-style: italic;
+    margin-bottom: 4px;
+    padding-left: 26px;
+  }
+  .q-answer {
+    padding: 10px 14px;
+    background: #f7fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-size: 0.88em;
+    color: #2d3748;
+    margin-left: 26px;
+    line-height: 1.8;
+  }
+  .q-answer strong { color: #1a365d; }
+
+  /* Checkbox row */
+  .checkbox-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-left: 26px;
+    margin-top: 4px;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+    color: #4a5568;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .checkbox-item .box {
+    width: 15px; height: 15px;
+    border: 2px solid #cbd5e0;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    color: transparent;
+  }
+  .checkbox-item.checked .box {
+    border-color: #2b6cb0;
+    color: #2b6cb0;
+    background: #ebf8ff;
+  }
+  .checkbox-item.checked {
+    color: #1a365d;
+    font-weight: 600;
+  }
+
+  /* Footer section */
+  .footer-section {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed #cbd5e0;
+  }
+  .footer-section .q-block { margin-bottom: 10px; }
+  .dev-note {
+    padding: 10px 14px;
+    background: #fffff0;
+    border: 1px solid #f6e05e;
+    border-radius: 8px;
+    font-size: 0.85em;
+    color: #744210;
+    margin-left: 26px;
+    line-height: 1.8;
+  }
+  .retell-box {
+    padding: 10px 14px;
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-radius: 8px;
+    font-size: 0.85em;
+    color: #22543d;
+    margin-left: 26px;
+    line-height: 1.8;
+  }
+  .show-box {
+    padding: 10px 14px;
+    background: #faf5ff;
+    border: 1px solid #d6bcfa;
+    border-radius: 8px;
+    font-size: 0.85em;
+    color: #44337a;
+    margin-left: 26px;
+    line-height: 1.8;
+  }
+
+  .page-footer {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.65em;
+    color: #cbd5e0;
+  }
+
+  @media print {
+    body { padding: 0; }
+    .page { padding: 12mm 14mm 10mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="course">AI流程管理公开课</div>
+    <h1>数字产品许愿卡</h1>
+    <div class="sub">练习2：许愿卡片互换开发</div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-row">
+    <div class="info-item"><span class="label">许愿人：</span><span class="value">Joyce</span></div>
+    <div class="info-item"><span class="label">小组：</span><span class="value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    <div class="info-item"><span class="label">开发者：</span><span class="value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    <div class="info-item"><span class="label">配对数字：</span><span class="value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">1</span> 我想要什么（一句话愿望）</div>
+    <div class="q-hint">写成"给谁用、帮他完成什么事"的产品句子。</div>
+    <div class="q-answer">
+      给<strong>流程管理者</strong>一个<strong>"业务流程 X 光机"</strong>，能持续读取业务日志和走查记录，自动诊断流程断点与优化空间，并输出有方法论支撑的改进方案和效益对比报告。
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">2</span> 谁会用？什么时候用？</div>
+    <div class="q-hint">用户越具体，开发者越容易做出"像真的"产品。</div>
+    <div class="q-answer">
+      <strong>流程管理者 / 流程梳理执行人</strong>；每周走查结束后上传走查表时使用；日常接入业务操作日志后<strong>持续自动运行</strong>，主动推送预警和改进建议。
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">3</span> 现在最痛的地方是什么？</div>
+    <div class="q-hint">不要只写"提升效率"，要写现在卡在哪里。</div>
+    <div class="q-answer">
+      ① 获取业务执行信息最耗时——执行人填写或回答<strong>不够全面、准确</strong>，存在认知局限和理解偏差；<br>
+      ② 提炼出的问题需要<strong>不断推进解决</strong>，多部门协调成本高，难以持续监控是否规范执行；<br>
+      ③ 需要交付的信息太多，<strong>不知道怎么分类汇总</strong>给系统建设者，缺少标准化的输出框架（流程架构+数据架构+应用架构）；<br>
+      ④ 2周完成一个模块，大量细节要一点点抠，<strong>时间极度紧缩</strong>。
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">4</span> 希望最后看到什么结果？</div>
+    <div class="q-hint">可以写页面、按钮、表格、报告、智能体回复或自动化动作。</div>
+    <div class="q-answer">
+      一个<strong>网页工具</strong>：上传走查表/业务日志后，输出：<br>
+      ① <strong>流程问题清单</strong>（分类标注：断点/冗余/瓶颈/偏差，按严重程度分级）<br>
+      ② <strong>信息缺口报告</strong>（哪些节点信息不充分，建议追问方向）<br>
+      ③ <strong>改进方案</strong>（含方法论依据 + 原流程 vs 优化方案效益对比：缩短流程/重组岗位/解决断点）<br>
+      ④ <strong>系统建设支撑建议</strong>（数据实体、数据流向、可自动化环节标注）
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">5</span> 我倾向的产品形态</div>
+    <div class="checkbox-row">
+      <div class="checkbox-item"><span class="box">✓</span> 个人介绍页</div>
+      <div class="checkbox-item checked"><span class="box">✓</span> 业务系统Demo</div>
+      <div class="checkbox-item checked"><span class="box">✓</span> AI智能体</div>
+      <div class="checkbox-item"><span class="box">✓</span> 流程小工具</div>
+      <div class="checkbox-item"><span class="box">✓</span> 虚拟产品</div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">6</span> 有哪些参考材料或风格？</div>
+    <div class="q-answer">
+      参考公司现有的<strong>《LTC流程模拟走查表》</strong>结构和字段；华为三支柱理论、GSA方法论框架；风格像<strong>企业内部诊断工作台</strong>——清晰的表格+分级标注+对比图表，专业简洁，不需要花哨动画。
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">7</span> 不希望它做什么？</div>
+    <div class="q-answer">
+      ① 不替代人做最终决策判断（只推荐，不决定）<br>
+      ② 不自动推送给业务执行人或部门负责人（需管理者确认后再发）<br>
+      ③ 不输出没有方法论依据的"拍脑袋"建议<br>
+      ④ 不跳过信息缺口直接给结论（应先标注信息不足再建议追问）
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-block">
+    <div class="q-num"><span class="num">8</span> 做到什么算合格？验收标准</div>
+    <div class="q-answer">
+      ① 能上传一份走查表（Excel），成功解析内容<br>
+      ② 能输出<strong>≥3条</strong>流程问题，每条标注类型和严重程度<br>
+      ③ 能针对至少1个问题输出改进方案，含<strong>方法论依据</strong>和<strong>效益对比</strong>（如"原流程5步→优化后3步，缩短40%"）<br>
+      ④ 能标注<strong>信息缺口</strong>（哪些节点回答不充分），建议追问方向<br>
+      ⑤ 界面字段清晰，输出可复制/导出给团队使用
+    </div>
+  </div>
+
+  <!-- Footer sections -->
+  <div class="footer-section">
+    <div class="q-block">
+      <div class="q-num"><span class="num" style="background:#dd6b20;">★</span> 开发者追问记录</div>
+      <div class="dev-note">
+        1. 走查表的具体格式是什么？Excel 还是在线表格？ → Excel，有固定列结构<br>
+        2. "方法论依据"具体指哪些方法论？ → GSA方法论、华为三支柱、端到端流程理论、精益流程等<br>
+        3. 效益对比需要量化数据还是定性描述？ → 第一版定性即可，后续迭代加入量化<br>
+        4. 输出报告给谁看？ → 流程管理者自用 + 可转发给系统建设者和部门负责人
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num"><span class="num" style="background:#38a169;">✓</span> 开发前复述</div>
+      <div class="retell-box">
+        我理解你要的不是"做一个页面"，而是给<strong>流程管理者</strong>在<strong>每周走查和日常监控</strong>场景下使用，解决<strong>信息获取低效、问题诊断靠经验、交付输出无标准</strong>的问题。第一版我会先做出<strong>上传走查表→输出问题清单+改进方案+信息缺口</strong>的 Demo，暂时不做持续监控和自动推送。做到<strong>能解析走查表并输出≥3条有方法论依据的诊断结果</strong>就算这轮合格。
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-num"><span class="num" style="background:#805ad5;">▶</span> 上台展示一句话</div>
+      <div class="show-box">
+        我许愿的是 <strong>业务流程 X 光机</strong>，同伴做出来的是 ____________________，下一步我最想迭代 <strong>持续监控业务日志 + 自动预警偏差</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    AI流程管理公开课 · 练习2：许愿卡片互换开发 · Joyce · 2026年6月
+  </div>
+
+</div>
+</body>
+</html>
